@@ -216,29 +216,49 @@ minY
     protected void paintMarkers(Graphics2D canvas) {
 // Шаг 1 - Установить специальное перо для черчения контуров маркеров
 
-        canvas.setStroke(markerStroke);
-// Выбрать красный цвета для контуров маркеров
-        canvas.setColor(Color.RED);
-// Выбрать красный цвет для закрашивания маркеров внутри
-        canvas.setPaint(Color.RED);
-// Шаг 2 - Организовать цикл по всем точкам графика
-        for (Double[] point: graphicsData) {
-// Инициализировать эллипс как объект для представления маркера
+        for (Double[] point: graphicsData) 		//Организовать цикл по всем точкам графика
+        {
+            //Установить специальное перо для черчения контуров маркеров
 
-            Ellipse2D.Double marker = new Ellipse2D.Double();
-/* Эллипс будет задаваться посредством указания координат
 
-его центра
+            //canvas.setPaint(Color.GREEN);			//Выбрать зелёный цвет для закрашивания маркеров внутри
+			/*
+				// Инициализировать эллипс как объект для представления маркера
+			Ellipse2D.Double marker = new Ellipse2D.Double();
+				// Эллипс будет задаваться посредством указания координат его центра и угла прямоугольника, в который он вписан
+			Point2D.Double center = xyToPoint(point[0], point[1]);	// Центр - в точке (x,y)
+			Point2D.Double corner = shiftPoint(center, 3, 3);		// Угол прямоугольника - отстоит на расстоянии (3,3)
+			marker.setFrameFromCenter(center, corner);				// Задать эллипс по центру и диагонали
+			canvas.draw(marker);									// Начертить контур маркера
+			canvas.fill(marker);									// Залить внутреннюю область маркера
+			*/
 
-и угла прямоугольника, в который он вписан */
-// Центр - в точке (x,y)
+            canvas.setStroke(markerStroke);
+
+
+            double c1=0;
+            if(c1==1)
+            {canvas.setColor(Color.BLACK);	//Выбрать blue цвета для контуров маркеров
+                canvas.setPaint(Color.BLACK);
+
+            }
+            else{
+                canvas.setColor(Color.GREEN);			//инеаче - Black
+                canvas.setPaint(Color.GREEN);
+            }
+            GeneralPath path = new GeneralPath();
             Point2D.Double center = xyToPoint(point[0], point[1]);
-// Угол прямоугольника - отстоит на расстоянии (3,3)
-            Point2D.Double corner = shiftPoint(center, 3, 3);
-// Задать эллипс по центру и диагонали
-            marker.setFrameFromCenter(center, corner);
-            canvas.draw(marker); // Начертить контур маркера
-            canvas.fill(marker); // Залить внутреннюю область маркера
+
+            path.append(new Line2D.Double(center.getX() + 5.5, center.getY(), center.getX() + 1.5, center.getY() + 1.5), true);
+            path.append(new Line2D.Double(center.getX() + 1.5, center.getY() +1.5, center.getX() , center.getY() + 5.5), true);
+            path.append(new Line2D.Double(center.getX(), center.getY() + 5.5, center.getX() - 1.5, center.getY() + 1.5), true);
+            path.append(new Line2D.Double(center.getX() - 1.5, center.getY() + 1.5, center.getX() -5.5, center.getY() ), true);
+            path.append(new Line2D.Double(center.getX() - 5.5, center.getY() , center.getX() - 1.5, center.getY() - 1.5), true);
+            path.append(new Line2D.Double(center.getX() - 1.5, center.getY() - 1.5, center.getX() , center.getY() - 5.5), true);
+            path.append(new Line2D.Double(center.getX() , center.getY() - 5.5, center.getX() + 1.5, center.getY() -1.5), true);
+            path.append(new Line2D.Double(center.getX() + 1.5, center.getY() - 1.5, center.getX() + 5.5, center.getY() ), true);
+
+            canvas.draw(path);
         }
     }
     // Метод, обеспечивающий отображение осей координат
