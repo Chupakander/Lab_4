@@ -35,9 +35,7 @@ public class MainFrame extends JFrame {
     private boolean fileLoaded = false;
     public MainFrame() {
 // Вызов конструктора предка Frame
-        super("Построение графиков функций на основе заранее
-
-                подготовленных файлов");
+        super("Построение графиков функций на основе заранее подготовленных файлов");
 
 // Установка размеров окна
                 setSize(WIDTH, HEIGHT);
@@ -55,18 +53,14 @@ public class MainFrame extends JFrame {
         JMenu fileMenu = new JMenu("Файл");
         menuBar.add(fileMenu);
 // Создать действие по открытию файла
-        Action openGraphicsAction = new AbstractAction("Открыть файл с
-
-                графиком") {
+        Action openGraphicsAction = new AbstractAction("Открыть файл с графиком") {
 
         public void actionPerformed(ActionEvent event) {
             if (fileChooser==null) {
                 fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File("."));
             }
-            if (fileChooser.showOpenDialog(MainFrame.this) ==
-
-                    JFileChooser.APPROVE_OPTION)
+            if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
 
                 openGraphics(fileChooser.getSelectedFile());
 
@@ -77,22 +71,14 @@ fileMenu.add(openGraphicsAction);
     // Создать пункт меню "График"
     JMenu graphicsMenu = new JMenu("График");
 menuBar.add(graphicsMenu);
-// Создать действие для реакции на активацию элемента "Показывать
+// Создать действие для реакции на активацию элемента "Показыватьоси координат"
 
-    оси координат"
-
-    Action showAxisAction = new AbstractAction("Показывать оси
-
-            координат") {
+    Action showAxisAction = new AbstractAction("Показывать оси  координат") {
 
     public void actionPerformed(ActionEvent event) {
-// свойство showAxis класса GraphicsDisplay истина,
+// свойство showAxis класса GraphicsDisplay истина, если элемент меню
 
-        если элемент меню
-
-// showAxisMenuItem отмечен флажком, и ложь - в
-
-        противном случае
+// showAxisMenuItem отмечен флажком, и ложь - в противном случае
 
         display.setShowAxis(showAxisMenuItem.isSelected());
     }
@@ -104,9 +90,7 @@ showAxisMenuItem = new JCheckBoxMenuItem(showAxisAction);
 // Элемент по умолчанию включен (отмечен флажком)
         showAxisMenuItem.setSelected(true);
 // Повторить действия для элемента "Показывать маркеры точек"
-        Action showMarkersAction = new AbstractAction("Показывать маркеры
-
-        точек") {
+        Action showMarkersAction = new AbstractAction("Показывать маркеры  точек") {
 
 public void actionPerformed(ActionEvent event) {
 // по аналогии с showAxisMenuItem
@@ -126,9 +110,7 @@ public void actionPerformed(ActionEvent event) {
 // Считывание данных графика из существующего файла
 protected void openGraphics(File selectedFile) {
         try {
-// Шаг 1 - Открыть поток чтения данных, связанный с входным
-
-        файловым потоком
+// Шаг 1 - Открыть поток чтения данных, связанный с входным файловым потоком
 
         DataInputStream in = new DataInputStream(new
 
@@ -159,9 +141,7 @@ Double.SIZE/8 байт;
 // Прочитанная пара координат добавляется в массив
         graphicsData[i++] = new Double[] {x, y};
         }
-// Шаг 4 - Проверка, имеется ли в списке в результате чтения
-
-        хотя бы одна пара координат
+// Шаг 4 - Проверка, имеется ли в списке в результате чтения хотя бы одна пара координат
 
         if (graphicsData!=null && graphicsData.length>0) {
 // Да - установить флаг загруженности данных
@@ -172,22 +152,15 @@ Double.SIZE/8 байт;
 // Шаг 5 - Закрыть входной поток
         in.close();
         } catch (FileNotFoundException ex) {
-// В случае исключительной ситуации типа "Файл не найден"
+// В случае исключительной ситуации типа "Файл не найден" показать сообщение об ошибке
 
-        показать сообщение об ошибке
-
-        JOptionPane.showMessageDialog(MainFrame.this, "Указанный
-        файл не найден", "Ошибка загрузки данных", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(MainFrame.this, "Указанный файл не найден", "Ошибка загрузки данных", JOptionPane.WARNING_MESSAGE);
 
         return;
         } catch (IOException ex) {
-// В случае ошибки ввода из файлового потока показать
+// В случае ошибки ввода из файлового потока показать сообщение об ошибке
 
-        сообщение об ошибке
-
-        JOptionPane.showMessageDialog(MainFrame.this, "Ошибка чтения
-
-        координат точек из файла", "Ошибка загрузки данных",
+        JOptionPane.showMessageDialog(MainFrame.this, "Ошибка чтения координат точек из файла", "Ошибка загрузки данных",
         JOptionPane.WARNING_MESSAGE);
         return;
         }
@@ -202,9 +175,7 @@ public static void main(String[] args) {
 private class GraphicsMenuListener implements MenuListener {
     // Обработчик, вызываемый перед показом меню
     public void menuSelected(MenuEvent e) {
-// Доступность или недоступность элементов меню "График"
-
-        определяется загруженностью данных
+// Доступность или недоступность элементов меню "График" определяется загруженностью данных
 
         showAxisMenuItem.setEnabled(fileLoaded);
         showMarkersMenuItem.setEnabled(fileLoaded);
@@ -212,9 +183,7 @@ private class GraphicsMenuListener implements MenuListener {
     // Обработчик, вызываемый после того, как меню исчезло с экрана
     public void menuDeselected(MenuEvent e) {
     }
-// Обработчик, вызываемый в случае отмены выбора пункта меню
-
-(очень редкая ситуация)
+// Обработчик, вызываемый в случае отмены выбора пункта меню (очень редкая ситуация)
 
     public void menuCanceled(MenuEvent e) {
     }
