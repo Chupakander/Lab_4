@@ -212,6 +212,30 @@ minY
 // Отобразить график
         canvas.draw(graphics);
     }
+
+    private double specialPoint(Double[] point) {
+        for (int i=0; i<graphicsData.length; i++) {
+            double number = point[1].doubleValue();
+
+
+            int cel = (int) number;
+            boolean c1 = false;
+            int a = 0;
+
+
+            a = cel % 2;
+
+            if (a == 0) {
+                return 1;
+
+            } else {
+                return 0;
+            }
+
+
+        }
+        return 0;
+    }
     // Отображение маркеров точек, по которым рисовался график
     protected void paintMarkers(Graphics2D canvas) {
 // Шаг 1 - Установить специальное перо для черчения контуров маркеров
@@ -236,7 +260,7 @@ minY
             canvas.setStroke(markerStroke);
 
 
-            double c1=0;
+            double c1=specialPoint( point);;
             if(c1==1)
             {canvas.setColor(Color.BLACK);	//Выбрать blue цвета для контуров маркеров
                 canvas.setPaint(Color.BLACK);
